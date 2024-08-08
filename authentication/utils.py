@@ -4,6 +4,7 @@ from datetime import datetime,timedelta,UTC
 from django.http import JsonResponse
 from functools import wraps
 from django.core.mail import send_mail
+
 def generate_jwt_token(user_id,token_type):
     expiry=datetime.now(UTC)+ timedelta(minutes=60 if token_type=='access' else 7*24*60)
     payload={

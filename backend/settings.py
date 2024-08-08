@@ -31,7 +31,9 @@ ALLOWED_HOSTS = ['backend-f2bi.onrender.com',]
 
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://frontend-rust-three-95.vercel.app",
+]
 
 
 CORS_ALLOWED_CREDENTIALS=True
