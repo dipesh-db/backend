@@ -1,7 +1,5 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-import 
-
 from django.db import connection
 import json
 import jwt
