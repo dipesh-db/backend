@@ -51,20 +51,24 @@ def register_user(request):
     
 
 
+
+
 def verify_email(request):
-    if request.method=="GET":
-        token=request.GET.get('token')   
+    if request.method == "GET":
+        token = request.GET.get('token')
+        
+        if not token:
+            return JsonResponse({'message': 'Token not provided'}, status=400)
 
         with connection.cursor() as cursor:
-              cursor.execute("SELECT id FROM users WHERE verification_token = %s", [token])
-              user = cursor.fetchone()
-              if user:
+            cursor.execute("SELECT id FROM users WHERE verification_token = %s", [token])
+            user = cursor.fetchone()
+            if user:
                 cursor.execute("UPDATE users SET is_active = TRUE, verification_token = NULL WHERE id = %s", [user[0]])
                 return redirect('https://frontend-rust-three-95.vercel.app/login?verified=true')
+        
+        return JsonResponse({'message': 'Invalid token'}, status=400)
     
-              else:
-                # Redirect to frontend login page with failure status
-                return redirect('https://frontend-rust-three-95.vercel.app/login?verified=false')
     return JsonResponse({'message': 'Invalid request method'}, status=405)
 
 
