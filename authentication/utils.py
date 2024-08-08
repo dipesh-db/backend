@@ -6,29 +6,31 @@ from django.http import JsonResponse
 from functools import wraps
 from django.core.mail import send_mail
 
-def generate_jwt_token(user_id,token_type):
-    expiry=datetime.now(UTC)+ timedelta(minutes=60 if token_type=='access' else 7*24*60)
-    payload={
-        'user_id':user_id,
-        'exp':expiry,
-        'token_type':token_type
 
-
+def generate_jwt_token(user_id, token_type):
+    expiry = datetime.now(UTC) + timedelta(minutes=60 if token_type == 'access' else 7*24*60)
+    payload = {
+        'user_id': user_id,
+        'exp': expiry,
+        'token_type': token_type
     }
-    token=jwt.encode(payload,settings.SECRET_KEY,algorithm='HS256')
+    token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
     return token
-
-
 
 def verify_jwt_token(token):
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
         return payload['user_id']
-    except InvalidTokenError:
+    except jwt.ExpiredSignatureError:
+        
+        return None
+    except jwt.InvalidTokenError:
+       
         return None
     except Exception as e:
+        
         return None
-    
+
 def jwt_authentication_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
