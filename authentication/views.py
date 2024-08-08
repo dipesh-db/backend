@@ -61,11 +61,11 @@ def verify_email(request):
               user = cursor.fetchone()
               if user:
                 cursor.execute("UPDATE users SET is_active = TRUE, verification_token = NULL WHERE id = %s", [user[0]])
-                return redirect('https://frontend-one-chi-19.vercel.app/login?verified=true')
+                return redirect('https://frontend-rust-three-95.vercel.app/login?verified=true')
     
               else:
                 # Redirect to frontend login page with failure status
-                return redirect('https://frontend-one-chi-19.vercel.app/login?verified=false')
+                return redirect('https://frontend-rust-three-95.vercel.app/login?verified=false')
     return JsonResponse({'message': 'Invalid request method'}, status=405)
 
 
