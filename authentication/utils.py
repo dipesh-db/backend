@@ -1,5 +1,6 @@
 import jwt
 from django.conf import settings
+from jwt.exceptions import InvalidTokenError
 from datetime import datetime,timedelta,UTC
 from django.http import JsonResponse
 from functools import wraps
@@ -23,7 +24,9 @@ def verify_jwt_token(token):
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
         return payload['user_id']
-    except (jwt.InvalidTokenError, Exception):
+    except InvalidTokenError:
+        return None
+    except Exception as e:
         return None
     
 def jwt_authentication_required(view_func):
