@@ -61,11 +61,11 @@ def verify_email(request):
               user = cursor.fetchone()
               if user:
                 cursor.execute("UPDATE users SET is_active = TRUE, verification_token = NULL WHERE id = %s", [user[0]])
-                return redirect('https://frontend-jcuo9g8rz-aayush-chhetris-projects.vercel.app/login?verified=true')
+                return redirect('https://frontend-one-chi-19.vercel.app/login?verified=true')
     
               else:
                 # Redirect to frontend login page with failure status
-                return redirect('https://frontend-jcuo9g8rz-aayush-chhetris-projects.vercel.app/login?verified=false')
+                return redirect('https://frontend-one-chi-19.vercel.app/login?verified=false')
     return JsonResponse({'message': 'Invalid request method'}, status=405)
 
 
@@ -148,13 +148,13 @@ def refresh_token(request):
 
 def send_verification_email(email,token):
     subject="Verify your email-address"
-    message=f"Click the link to verify your email:https://event-snowy-eight.vercel.app/authentication/verify-email?token={token}"
+    message=f"Click the link to verify your email:https://backend-f2bi.onrender.com/authentication/verify-email?token={token}"
     send_email_to_client(email,subject,message)
 
 
 def send_password_reset_email(email,token):
     subject="Reset your Password"
-    message=f"Click the link to reset your password: https://event-snowy-eight.vercel.app/authentication/reset-password?token={token}"
+    message=f"Click the link to reset your password: https://backend-f2bi.onrender.com/authentication/reset-password?token={token}"
     send_email_to_client(email,subject,message)    
 
 
