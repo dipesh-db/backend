@@ -65,7 +65,7 @@ def verify_email(request):
             user = cursor.fetchone()
             if user:
                 cursor.execute("UPDATE users SET is_active = TRUE, verification_token = NULL WHERE id = %s", [user[0]])
-                return redirect('https://frontend-rust-three-95.vercel.app/login?verified=true')
+                return redirect('https://frontend-nine-rouge-77.vercel.app/login?verified=true')
         
         return JsonResponse({'message': 'Invalid token'}, status=400)
     
