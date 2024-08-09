@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['backend-f2bi.onrender.com',]
 
 
 CORS_ALLOWED_ORIGINS = [
-    "hhttps://frontend-nine-rouge-77.vercel.app",
+    "hhttps://frontend-nine-rouge-77.vercel.app/",
 ]
 
 
